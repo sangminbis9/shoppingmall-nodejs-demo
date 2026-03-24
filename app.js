@@ -12,21 +12,13 @@ dotenv.config();
 
 // Express 앱을 생성합니다.
 const app = express();
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
 
 // body-parser 미들웨어를 추가합니다.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // 세션 설정
-app.use(session({
-  secret: 'your_secret_key', 
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}));
-
-// 정적 파일 제공 설정 (예: 이미지 업로드 디렉토리)
 app.use(session({
   secret: process.env.SESSION_SECRET || 'dev-secret',
   resave: false,
@@ -40,6 +32,7 @@ app.set('views', path.join(__dirname, 'views')); // 템플릿 파일들이 위�
 // 데이터베이스 연결 설정
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
