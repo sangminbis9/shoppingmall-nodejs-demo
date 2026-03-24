@@ -1,33 +1,17 @@
 const express = require('express');
-const mysql = require('mysql2');
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
-
-dotenv.config();
   
 const router = express.Router();
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error('MySQL 연결 오류: ', err);
-    throw err;
-  }
-  console.log('MySQL에 성공적으로 연결되었습니다.');
-});
-
 router.get('/', (req, res) => {
-  connection.query('SELECT * FROM producttable', (error, results, fields) => {
+  const db = req.app.locals.db;
+
+  db.query('SELECT * FROM producttable', (error, results, fields) => {
     if (error) {
       console.error('쿼리 실행 오류: ', error);
-      res.status(500).send('데이터 조회 중 오류가 발생했습니다.');
+      return res.status(500).send('데이터 조회 중 오류가 발생했습니다.');
     } else {
       let html = `
         <!DOCTYPE html>

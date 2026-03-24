@@ -30,20 +30,27 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views')); // 템플릿 파일들이 위치할 디렉토리 설정
 
 // 데이터베이스 연결 설정
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  connectTimeout: 10000
 });
+app.locals.db = pool;
 
-connection.connect((err) => {
+// 시작할 때 연결 테스트
+pool.getConnection((err, conn) => {
   if (err) {
-    console.error('MySQL 연결 오류: ', err);
-    throw err;
+    console.error('MySQL 연결 오류:', err);
+  } else {
+    console.log('MySQL에 성공적으로 연결되었습니다.');
+    conn.release();
   }
-  console.log('MySQL에 성공적으로 연결되었습니다.');
 });
 
 const productDisplay = require('./productDisplay');
@@ -64,7 +71,6 @@ const storage = multer.diskStorage({
     cb(null, file.originalname); // 입력 받은 그대로의 파일명을 설정.
   }
 });
-
 
 const upload = multer({ 
   storage: storage,
