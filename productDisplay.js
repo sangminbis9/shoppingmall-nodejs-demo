@@ -142,28 +142,31 @@ function renderPage(products) {
           cursor: pointer;
         }
         .product-detail-container {
-          width: 50%;
-          margin: 0 auto;
+          width: 100%;
+          margin: 0;
           min-height: 100vh;
-          background-color: white;
         }
         .back-navigator {
-          width: 50%;
           position: fixed;
           top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
           display: flex;
           justify-content: flex-start;
           align-items: center;
           background-color: white;
           border-bottom: 1px solid rgb(214, 214, 214);
-          border-right: 1px solid rgb(214, 214, 214);
           border-left: 1px solid rgb(214, 214, 214);
+          border-right: 1px solid rgb(214, 214, 214);
           padding: 12px 20px;
           box-sizing: border-box;
           z-index: 10000;
         }
         .content-container {
-          padding-top: 72px;
+          width: 100%;
+          padding-top: 60px;
+          box-sizing: border-box;
         }
         .back-navigator button {
           background-color: transparent;
