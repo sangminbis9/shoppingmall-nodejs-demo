@@ -160,6 +160,10 @@ function renderPage(products) {
           border-left: 1px solid rgb(214, 214, 214);
           padding: 12px 20px;
           box-sizing: border-box;
+          z-index: 10000;
+        }
+        .content-container {
+          padding-top: 72px;
         }
         .back-navigator button {
           background-color: transparent;
