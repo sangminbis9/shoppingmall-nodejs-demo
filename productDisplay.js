@@ -41,24 +41,18 @@ function getImageUrls(product) {
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   }
 
-  let urls = files.map(file =>
+  if (files.length === 0) {
+    return [NO_IMAGE];
+  }
+
+  // product.image가 실제 폴더 안에 있을 때만 대표 이미지로 맨 앞으로 보냄
+  if (product.image && files.includes(product.image)) {
+    files = [product.image, ...files.filter(file => file !== product.image)];
+  }
+
+  return files.map(file =>
     '/uploads/' + encodeURIComponent(folderName) + '/' + encodeURIComponent(file)
   );
-
-  if (product.image) {
-    const preferred = '/uploads/' + encodeURIComponent(folderName) + '/' + encodeURIComponent(product.image);
-    if (urls.includes(preferred)) {
-      urls = [preferred, ...urls.filter(url => url !== preferred)];
-    } else {
-      urls.unshift(preferred);
-    }
-  }
-
-  if (urls.length === 0) {
-    urls = [NO_IMAGE];
-  }
-
-  return urls;
 }
 
 function buildImageSlide(product, onlyFirst = false) {
@@ -146,6 +140,12 @@ function renderPage(products) {
           vertical-align: top;
           margin-bottom: 32px;
           cursor: pointer;
+        }
+        .product-detail-container {
+          width: 50%;
+          margin: 0 auto;
+          min-height: 100vh;
+          background-color: white;
         }
         .back-navigator {
           width: 50%;
