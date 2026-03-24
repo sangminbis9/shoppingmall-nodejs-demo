@@ -1,0 +1,12 @@
+{
+  "name": "shoppingmall-demo",
+  "version": "1.0.0",
+  "description": "Node.js + Express + MySQL shopping mall demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
