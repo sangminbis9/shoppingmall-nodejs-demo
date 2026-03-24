@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const multer = require('multer');
 const path = require('path');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const fs = require('fs');
 
 // 환경 변수를 로드합니다.
