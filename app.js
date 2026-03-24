@@ -12,7 +12,7 @@ dotenv.config();
 
 // Express 앱을 생성합니다.
 const app = express();
-//const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // body-parser 미들웨어를 추가합니다.
 app.use(bodyParser.urlencoded({ extended: true }));
