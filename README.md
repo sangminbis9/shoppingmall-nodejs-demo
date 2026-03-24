@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 쇼핑몰 프로그램 README
 
 ## 개요
@@ -49,3 +50,6 @@ CREATE TABLE login (
     cart JSON DEFAULT NULL,
     PRIMARY KEY (num)
 );
+=======
+# shoppingmall-nodejs-demo
+>>>>>>> fe044edd06adb421b3f4fe55a95c30c55f92701e
